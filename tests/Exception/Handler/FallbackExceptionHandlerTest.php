@@ -12,10 +12,11 @@
 namespace Tobscure\Tests\Exception\Handler;
 
 use Exception;
+use PHPUnit\Framework\TestCase;
 use Tobscure\JsonApi\Exception\Handler\FallbackExceptionHandler;
 use Tobscure\JsonApi\Exception\Handler\ResponseBag;
 
-class FallbackExceptionHandlerTest extends \PHPUnit_Framework_TestCase
+class FallbackExceptionHandlerTest extends TestCase
 {
     public function testHandlerCanManageExceptions()
     {

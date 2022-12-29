@@ -13,12 +13,15 @@ namespace Tobscure\Tests\JsonApi;
 
 use Exception;
 use Tobscure\JsonApi\ErrorHandler;
+use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
 
 class ErrorHandlerTest extends AbstractTestCase
 {
+    use ExpectException;
+
     public function test_it_should_throw_an_exception_when_no_handlers_are_present()
     {
-        $this->setExpectedException('RuntimeException');
+        $this->expectException(\RuntimeException::class);
 
         $handler = new ErrorHandler;
 

@@ -12,6 +12,7 @@
 namespace Tobscure\Tests\JsonApi;
 
 use Tobscure\JsonApi\Parameters;
+use Yoast\PHPUnitPolyfills\Polyfills\ExpectException;
 
 /**
  * This is the parameters test class.
@@ -20,6 +21,8 @@ use Tobscure\JsonApi\Parameters;
  */
 class ParametersTest extends AbstractTestCase
 {
+    use ExpectException;
+
     public function testGetIncludeReturnsArrayOfIncludes()
     {
         $parameters = new Parameters(['include' => 'posts,images']);
@@ -34,12 +37,10 @@ class ParametersTest extends AbstractTestCase
         $this->assertEquals([], $parameters->getInclude(['posts', 'images']));
     }
 
-    /**
-     * @expectedException \Tobscure\JsonApi\Exception\InvalidParameterException
-     * @expectedExceptionCode 1
-     */
     public function testGetIncludeWithUnallowedField()
     {
+        $this->expectException(\Tobscure\JsonApi\Exception\InvalidParameterException::class);
+        $this->expectExceptionCode(1);
         $parameters = new Parameters(['include' => 'posts,images']);
 
         $parameters->getInclude(['posts']);
@@ -66,12 +67,10 @@ class ParametersTest extends AbstractTestCase
         $this->assertEmpty($parameters->getSort());
     }
 
-    /**
-     * @expectedException \Tobscure\JsonApi\Exception\InvalidParameterException
-     * @expectedExceptionCode 3
-     */
     public function testGetSortWithUnallowedField()
     {
+        $this->expectException(\Tobscure\JsonApi\Exception\InvalidParameterException::class);
+        $this->expectExceptionCode(3);
         $parameters = new Parameters(['sort' => 'firstname,lastname']);
 
         $parameters->getSort(['firstname']);
@@ -84,12 +83,10 @@ class ParametersTest extends AbstractTestCase
         $this->assertEquals(10, $parameters->getOffset());
     }
 
-    /**
-     * @expectedException \Tobscure\JsonApi\Exception\InvalidParameterException
-     * @expectedExceptionCode 2
-     */
     public function testGetOffsetIsAtLeastZero()
     {
+        $this->expectException(\Tobscure\JsonApi\Exception\InvalidParameterException::class);
+        $this->expectExceptionCode(2);
         $parameters = new Parameters(['page' => ['offset' => -5]]);
 
         $parameters->getOffset();
